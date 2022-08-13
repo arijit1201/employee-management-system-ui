@@ -1,6 +1,5 @@
-import React from "react";
 import { useState } from "react";
-import saveEmployeeCall from "../services/EmployeeService";
+import { saveEmployeeCall } from "../services/EmployeeService";
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
     firstName: "",
