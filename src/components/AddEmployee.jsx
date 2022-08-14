@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { saveEmployeeCall } from "../services/EmployeeService";
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -6,7 +7,7 @@ const AddEmployee = () => {
     lastName: "",
     emailId: "",
   });
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const value = e.target.value;
     setEmployee({
@@ -20,18 +21,29 @@ const AddEmployee = () => {
   };
 
   const saveEmployee = (e) => {
-    e.preventDefault(); {/*prevents the refreshing of the page */}
+    e.preventDefault();
+    {
+      /*prevents the refreshing of the page */
+    }
     saveEmployeeCall(employee)
-    .then(
-      (response) => {
+      .then((response) => {
         console.log(response);
-      }
-    )
-    .catch((error) => {
-      console.log(error);
-    })
-  }
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
+  const reset = (e) => {
+    e.preventDefault();
+
+    setEmployee({
+      firstName: "",
+      lastName: "",
+      emailId: "",
+    });
+  };
   return (
     <div className="flex max-w-2xl mx-auto my-4 shadow border-b">
       <div className="px-8 py-8">
@@ -76,12 +88,16 @@ const AddEmployee = () => {
           ></input>
         </div>
         <div className="items-center justify-center h-14 w-full my-4 space-x-4 pt-4">
-          <button 
-          onClick={saveEmployee}
-          className="rounded py-2 px-6 text-white font-semibold bg-green-400 hover:bg-green-800">
+          <button
+            onClick={saveEmployee}
+            className="rounded py-2 px-6 text-white font-semibold bg-green-400 hover:bg-green-800"
+          >
             Save
           </button>
-          <button className="rounded py-2 px-6 text-white font-semibold bg-red-400 hover:bg-red-800">
+          <button
+            className="rounded py-2 px-6 text-white font-semibold bg-red-400 hover:bg-red-800"
+            onClick={reset}
+          >
             Clear
           </button>
         </div>
