@@ -30,7 +30,6 @@ const EmployeeList = () => {
       await deleteEmployeeCall(id);
       employees &&
         setEmployees((prevElement) => {
-          console.log(prevElement);
           return prevElement.filter((employee) => employee?.id !== id);
         }); {/*Functional updates
       If the new state is computed using the previous state, 
